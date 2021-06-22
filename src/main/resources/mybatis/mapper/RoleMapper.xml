@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.solar.office.dao.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.solar.office.bean.Role">
+        <id column="role_id" property="roleId" jdbcType="BIGINT"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="created_date" property="createdDate" jdbcType="TIMESTAMP"/>
+        <result column="product_id" property="productId" jdbcType="VARCHAR"/>
+        <result column="last_update" property="lastUpdate" jdbcType="TIMESTAMP"/>
+        <result column="last_update_by" property="lastUpdateBy" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        role_id, role_name, creator, created_date, product_id, last_update, last_update_by,
+        remark
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_role
+        where role_id = #{roleId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM t_role
+        WHERE role_id = #{roleId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.solar.office.bean.Role">
+        INSERT INTO t_role (role_id, role_name, creator,
+                            created_date, product_id, last_update,
+                            last_update_by, remark)
+        VALUES (#{roleId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR},
+                #{createdDate,jdbcType=TIMESTAMP}, #{productId,jdbcType=VARCHAR}, #{lastUpdate,jdbcType=TIMESTAMP},
+                #{lastUpdateBy,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.solar.office.bean.Role">
+        insert into t_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="roleName != null">
+                role_name,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createdDate != null">
+                created_date,
+            </if>
+            <if test="productId != null">
+                product_id,
+            </if>
+            <if test="lastUpdate != null">
+                last_update,
+            </if>
+            <if test="lastUpdateBy != null">
+                last_update_by,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId,jdbcType=BIGINT},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createdDate != null">
+                #{createdDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdate != null">
+                #{lastUpdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.solar.office.bean.Role">
+        update t_role
+        <set>
+            <if test="roleName != null">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createdDate != null">
+                created_date = #{createdDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdate != null">
+                last_update = #{lastUpdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where role_id = #{roleId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.solar.office.bean.Role">
+        UPDATE t_role
+        SET role_name      = #{roleName,jdbcType=VARCHAR},
+            creator        = #{creator,jdbcType=VARCHAR},
+            created_date   = #{createdDate,jdbcType=TIMESTAMP},
+            product_id     = #{productId,jdbcType=VARCHAR},
+            last_update    = #{lastUpdate,jdbcType=TIMESTAMP},
+            last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+            remark         = #{remark,jdbcType=VARCHAR}
+        WHERE role_id = #{roleId,jdbcType=BIGINT}
+    </update>
+</mapper>

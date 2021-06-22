@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solar.office.dao.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.solar.office.bean.User">
+        <id column="uid" jdbcType="INTEGER" property="uid"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="CHAR" property="password"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="created_date" jdbcType="TIMESTAMP" property="createdDate"/>
+        <result column="product_id" jdbcType="VARCHAR" property="productId"/>
+        <result column="last_update" jdbcType="TIMESTAMP" property="lastUpdate"/>
+        <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        uid, user_name, password, role_id, creator, created_date, product_id, last_update,
+        last_update_by, remark
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where uid = #{uid}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM t_user
+        WHERE uid = #{uid,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.solar.office.bean.User">
+        INSERT INTO t_user (user_name, password,
+                            role_id, creator, created_date,
+                            product_id, last_update, last_update_by,
+                            remark)
+        VALUES (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=CHAR},
+                #{roleId,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, sysdate(),
+                #{productId,jdbcType=VARCHAR}, #{lastUpdate,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR},
+                #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.solar.office.bean.User">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createdDate != null">
+                created_date,
+            </if>
+            <if test="productId != null">
+                product_id,
+            </if>
+            <if test="lastUpdate != null">
+                last_update,
+            </if>
+            <if test="lastUpdateBy != null">
+                last_update_by,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=CHAR},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createdDate != null">
+                #{createdDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdate != null">
+                #{lastUpdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.solar.office.bean.User">
+        update t_user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=CHAR},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createdDate != null">
+                created_date = #{createdDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdate != null">
+                last_update = #{lastUpdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uid = #{uid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.solar.office.bean.User">
+        UPDATE t_user
+        SET user_name      = #{userName,jdbcType=VARCHAR},
+            password       = #{password,jdbcType=CHAR},
+            role_id        = #{roleId,jdbcType=INTEGER},
+            creator        = #{creator,jdbcType=VARCHAR},
+            created_date   = #{createdDate,jdbcType=TIMESTAMP},
+            product_id     = #{productId,jdbcType=VARCHAR},
+            last_update    = #{lastUpdate,jdbcType=TIMESTAMP},
+            last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+            remark         = #{remark,jdbcType=VARCHAR}
+        WHERE uid = #{uid,jdbcType=INTEGER}
+    </update>
+</mapper>
